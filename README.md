@@ -106,13 +106,13 @@ AULCE is a **modular system**, not a single binary.
 
 ## Tech Stack
 
-| Tool                    | Choice                                  |
-| ----------------------- | --------------------------------------- |
-| Core                    Python 3.11, Rust (high‑perf codecs)      |
-| Compression             zstd, brotli, lzma, custom entropy coders |
-| ML                      PyTorch, scikit‑learn                     |
-| RAG / Explainability    LangChain, Chroma, OpenAI‑compatible LLM  |
-| Web UI                  FastAPI, React + Tailwind                 |
+| Tool                    | Choice                                    |
+| ----------------------- | ----------------------------------------- |
+| Core                    | Python 3.11, Rust (high‑perf codecs)      |
+| Compression             | zstd, brotli, lzma, custom entropy coders |
+| ML                      | PyTorch, scikit‑learn                     |
+| RAG / Explainability    | LangChain, Chroma, OpenAI‑compatible LLM  |
+| Web UI                  | FastAPI, React + Tailwind                 |
   
 ---
 
