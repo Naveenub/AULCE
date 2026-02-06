@@ -41,7 +41,7 @@ All built in a **reproducible, research-grade way**.
 
 ## 📐 System Overview
 
-PiedPiperX treats compression as a **decision problem**, not a single algorithm.
+AULCE treats compression as a **decision problem**, not a single algorithm.
 
 | Stage                | Description                                                 |
 | -------------------- | ----------------------------------------------------------- |
@@ -109,7 +109,7 @@ RAG ensures **anti-hallucination reasoning**:
 ## 🧱 Repository Structure
 
 ```text
-PiedPiperX/
+AULCE/
 ├── README.md
 ├── LICENSE
 ├── backend/
@@ -213,8 +213,8 @@ python benchmarks/plot.py
 ## 🌐 Quick Start (Docker)
 
 ```bash
-docker build -t piedpiperx .
-docker run -p 8000:8000 piedpiperx
+docker build -t AULCE .
+docker run -p 8000:8000 AULCE
 ```
 
 Visit: `http://localhost:8000`
