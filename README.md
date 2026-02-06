@@ -1,6 +1,6 @@
 # 🍍 AULCE
 
-**AULCE** is a research-grade, open-source **lossless universal compression system** inspired by the *ideas* behind the fictional Pied Piper in HBO’s *Silicon Valley* — but built **entirely in the open**, using modular pipelines, ML-based strategy selection, and explainable RAG reasoning.
+**Adaptive Universal Lossless Compression Engine (AULCE)** is a research-grade, open-source **lossless universal compression system** inspired by the *ideas* behind the fictional Pied Piper in HBO’s *Silicon Valley* — but built **entirely in the open**, using modular pipelines, ML-based strategy selection, and explainable RAG reasoning.
 
 It is designed to be **universal, infra-aware, ML-driven, and explainable**, not just another ZIP replacement.
 
