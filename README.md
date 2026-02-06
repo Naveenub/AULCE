@@ -1,295 +1,238 @@
-# AULCE 🚀
+---
 
-> **A research‑grade, open‑source, lossless universal compression system inspired by (but not copying) the HBO *Silicon Valley* concept.**
+# 🍍 AULCE
 
-AULCE is **not magic** and **not a single algorithm**. It is a *system*: a multi‑pipeline, ML‑assisted compression framework that **selects, composes, and validates optimal lossless strategies per file type**, with explainability via RAG and strong benchmarking discipline.
+**AULCE** is a research-grade, open-source **lossless universal compression system** inspired by the *ideas* behind the fictional Pied Piper in HBO’s *Silicon Valley* — but built **entirely in the open**, using modular pipelines, ML-based strategy selection, and explainable RAG reasoning.
+
+It is designed to be **universal, infra-aware, ML-driven, and explainable**, not just another ZIP replacement.
+
+> This is not a fictional magic compressor. It is a full, end-to-end system with multi-stage compression pipelines, ML strategy selection, RAG explanations, evaluation, and live benchmarks.
 
 ---
 
-## Introduction
+## 🚀 Why AULCE Exists
 
-Classic compressors (ZIP, TAR.GZ, 7z, Zstd) apply *general heuristics*. Real‑world data is heterogeneous: PDFs, logs, CSVs, images, binaries, audio, and already‑compressed blobs behave very differently.
+There is **no open-source Pied Piper-like system**:
 
-**AULCE** treats compression as a *decision problem*:
+* No public repo for universal, adaptive, lossless compression
+* No ML-assisted strategy selection for all file types
+* No explainable system showing *why compression succeeds or fails*
 
-> *Given a file (or corpus), which lossless strategy—or chain of strategies—minimizes size while guaranteeing reversibility?*
+**AULCE fills that gap** with:
 
-Instead of promising impossible ratios, we focus on:
+* ML-based strategy selector for heterogeneous file types
+* Multi-stage hybrid compression pipelines
+* Retrieval-Augmented Generation (RAG) to explain failures
+* Tool-aware reasoning to prevent hallucination
+* Transparent evaluation & benchmarking
 
-* smarter selection
-* hybrid pipelines
-* empirical guarantees
-* transparent failure explanations
-
----
-
-## Available Today vs What’s New
-
-### Existing Tools
-
-| Tool   | Strength   | Limitation    |
-| ------ | ---------- | ------------- |
-| ZIP    | Ubiquitous | Weak ratios   |
-| TAR.GZ | Simple     | No adaptivity |
-| 7z     | Strong     | Slow, opaque  |
-| Zstd   | Fast       | Not universal |
+All built in a **reproducible, research-grade way**.
 
 ---
 
-## Core Design Goals
+## 🧠 Core Design Goals
 
-1. **Strictly lossless** (bit‑perfect round‑trip)
-2. **Universal** (any file extension)
-3. **Composable** (pipelines, not monoliths)
-4. **Explainable** (why compression succeeded or failed)
-5. **Benchmark‑driven** (no marketing ratios)
-6. **Open & inspectable** (no black boxes)
-
----
-
-## Model Overview (ML Strategy Selector)
-
-The ML model does **not** compress data directly.
-
-It predicts:
-
-* which *pipeline* to apply
-* expected compression ratio
-* expected time/memory cost
-* probability of improvement vs baseline
-
-### Input Features
-
-* Byte entropy
-* N‑gram redundancy
-* File magic + MIME
-* Size distribution
-* Symbol frequency skew
-* Prior compression signals
-
-### Output
-
-```json
-{
-  "pipeline": "pdf → object‑stream → zstd",
-  "expected_ratio": 2.14,
-  "confidence": 0.82
-}
-```
+* 🧩 **Universal** – supports any file extension
+* ⚡ **Fast & adaptive** – selects pipelines per file type
+* 🔍 **Explainable** – RAG explains compression outcomes
+* 🎯 **Benchmark-first** – compares against ZIP, TAR, 7z, Zstd
+* 🛠️ **Tool-aware** – integrates analysis, logs, file context
+* 🔓 **Fully open** – MIT/Apache 2.0 license
 
 ---
 
-## System Overview
+## 📐 System Overview
 
-AULCE is a **modular system**, not a single binary.
+PiedPiperX treats compression as a **decision problem**, not a single algorithm.
+
+| Stage                | Description                                                 |
+| -------------------- | ----------------------------------------------------------- |
+| Ingestion            | Reads files, extracts metadata                              |
+| Feature Extraction   | Entropy, size, symbol distribution, MIME type               |
+| ML Strategy Selector | Predicts best compression pipeline                          |
+| Pipeline Engine      | Applies hybrid compression strategy                         |
+| Validator            | Ensures lossless round-trip                                 |
+| Explainer (RAG)      | Generates human-readable explanation when compression fails |
+| Benchmarking         | Evaluates against ZIP / 7z / Zstd                           |
+
+---
+
+## 📊 ML Model Overview
+
+The ML model **does not compress data directly**, but predicts:
+
+* Optimal pipeline for a file
+* Expected compression ratio
+* Execution time & memory
+* Likelihood of improvement vs baseline
+
+| Attribute  | Value                                                         |
+| ---------- | ------------------------------------------------------------- |
+| Model type | Random Forest / PyTorch hybrid                                |
+| Inputs     | Entropy, file size, MIME, symbol frequency, prior compression |
+| Outputs    | Pipeline selection, expected ratio, confidence                |
+| Library    | scikit-learn, PyTorch                                         |
+| License    | MIT / Apache 2.0                                              |
+
+---
+
+## 🔍 Retrieval-Augmented Generation (RAG)
+
+RAG explains **why compression failed** using:
+
+* Embedded documentation
+* Historical file comparisons
+* Entropy & codec theory
+
+RAG ensures **anti-hallucination reasoning**:
+
+* Only cites retrieved documents
+* References prior benchmarks
+* Provides actionable explanations
+
+---
+
+## 🏗️ Tech Stack
+
+| Layer             | Choice                            |
+| ----------------- | --------------------------------- |
+| Backend           | FastAPI, Python 3.11              |
+| ML                | scikit-learn, PyTorch             |
+| Compression       | Zstd, Brotli, LZMA, custom codecs |
+| Embeddings        | OpenAI / Hugging Face embeddings  |
+| RAG               | LangChain + FAISS / Chroma        |
+| Frontend UI       | React + Tailwind                  |
+| PDF/Image Parsing | PyMuPDF, Pillow                   |
+| Evaluation        | Benchmark & hallucination metrics |
+| Deployment        | Docker, Docker Compose, AWS EC2   |
+
+---
+
+## 🧱 Repository Structure
 
 ```text
-              Upload
-                │
-                ▼
-             Analyzer
-                │
-                ▼
-            ML Selector
-                │
-                ▼
-          Pipeline Engine
-                │
-                ▼
-            Validator
-                │
-                ▼
-            Explainer
-```
-
----
-
-## Tech Stack
-
-| Tool                    | Choice                                    |
-| ----------------------- | ----------------------------------------- |
-| Core                    | Python 3.11, Rust (high‑perf codecs)      |
-| Compression             | zstd, brotli, lzma, custom entropy coders |
-| ML                      | PyTorch, scikit‑learn                     |
-| RAG / Explainability    | LangChain, Chroma, OpenAI‑compatible LLM  |
-| Web UI                  | FastAPI, React + Tailwind                 |
-  
----
-
-## Repository Structure
-
-```text
-piedpiperx/
+PiedPiperX/
+├── README.md
+├── LICENSE
 ├── backend/
-│   ├── api/
+│   ├── api.py
 │   ├── analyzer/
+│   ├── compressors/
 │   ├── selector/
-│   ├── pipelines/
 │   ├── validator/
 │   └── explainer/
 ├── ml/
-│   ├── datasets/
-│   ├── feature_engineering/
 │   ├── training/
-│   ├── evaluation/
+│   ├── feature_engineering/
 │   └── models/
 ├── rag/
-│   ├── documents/
-│   ├── index/
-│   └── chains/
+│   ├── ingest.py
+│   ├── retriever.py
+│   └── explainer.py
 ├── benchmarks/
 │   ├── datasets/
-│   ├── runners/
-│   └── graphs/
+│   ├── runner.py
+│   └── plot.py
 ├── frontend/
 │   ├── src/
 │   └── public/
 ├── scripts/
-├── docs/
-└── README.md
+│   ├── run_benchmarks.py
+│   └── prepare_data.py
+└── docker-compose.yml
 ```
 
 ---
 
-## ASCII Architecture Diagram
+## 🧱 ASCII Architecture Diagram
 
 ```text
-                             ┌────────────┐
-                             │   Web UI   │
-                             └─────┬──────┘
-                                   │
-                             ┌─────▼──────┐
-                             │  FastAPI   │
-                             └─────┬──────┘
-                                   │
-                      ┌────────────▼────────────┐
-                      │      File Analyzer      │
-                      └────────────┬────────────┘
-                                   │
-                         ┌─────────▼─────────┐
-                         │ ML Strategy Model │
-                         └─────────┬─────────┘
-                                   │
-                         ┌─────────▼─────────┐
-                         │  Pipeline Engine  │
-                         └─────────┬─────────┘
-                                   │
-                      ┌────────────▼────────────┐
-                      │    Lossless Validator   │
-                      └────────────┬────────────┘
-                                   │
-                         ┌─────────▼─────────┐
-                         │   RAG Explainer   │
-                         └───────────────────┘
+                     ┌─────────────────────┐
+                     │   User / Client     │
+                     │ (CLI, Web UI, API)  │
+                     └─────────┬───────────┘
+                               │
+                               ▼
+                     ┌─────────────────────┐
+                     │    FastAPI Backend  │
+                     └─────────┬───────────┘
+                               │
+           ┌───────────────────┼───────────────────┐
+           │                   │                   │
+           ▼                   ▼                   ▼
+     ┌────────────┐      ┌───────────────┐   ┌────────────┐
+     │   Analyzer │      │   ML Selector │   │  Pipeline  │
+     └─────┬──────┘      └──────┬────────┘   └─────┬──────┘
+           │                    │                  │
+           ▼                    ▼                  ▼
+     ┌────────────┐      ┌───────────────┐   ┌────────────┐
+     │ Validator  │      │ RAG Explainer │   │ Benchmark  │
+     └────────────┘      └───────────────┘   └────────────┘
 ```
 
 ---
 
-## ML Training Pipeline
+## 🧪 Training Pipeline
 
-1. Collect heterogeneous corpus
-2. Extract statistical + structural features
-3. Run all pipelines → ground truth ratios
-4. Train multi‑label classifier + regressor
+1. Collect diverse file corpus (PDF, images, audio, binaries, text)
+2. Extract features (entropy, MIME type, symbol frequency)
+3. Execute all pipelines → record compression ratios
+4. Train ML strategy selector (Random Forest / PyTorch)
 5. Validate on unseen file families
 6. Persist model + feature schema
 
 ---
 
-## RAG: Explaining Compression Failures
+## 🛠️ Tool-Aware Reasoning
 
-When compression underperforms:
-
-> *"Why didn’t this file compress?"*
-
-The system retrieves:
-
-* entropy theory
-* similar historical files
-* codec limitations
-
-Then generates grounded explanations via LangChain.
+* Checks system context (logs, OS, APIs)
+* Requests missing information instead of guessing
+* Grounded answers for explainability
 
 ---
 
-## Tool‑Aware Reasoning (Anti‑Hallucination)
+## 📊 Evaluation & Hallucination Metrics
 
-The explainer **cannot invent reasons**.
+* Compression ratio vs baseline (ZIP, 7z, Zstd)
+* Execution time & memory
+* ML strategy regret
+* RAG faithfulness / hallucination score
 
-Rules:
+Run batch evaluation:
 
-* Every claim must cite retrieved docs
-* Metrics are computed, not guessed
-* Pipelines are executed before explanation
+```bash
+python benchmarks/runner.py
+```
 
----
+Visualize:
 
-## Evaluation & Hallucination Metrics
-
-**Compression Metrics**
-
-* Ratio
-* Time
-* Memory
-
-**ML Metrics**
-
-* Top‑1 accuracy
-* Regret vs oracle
-
-**RAG Metrics**
-
-* Citation coverage
-* Faithfulness score
-* Contradiction rate
+```bash
+python benchmarks/plot.py
+```
 
 ---
 
-## Benchmarks
+## 🌐 Quick Start (Docker)
 
-We benchmark against:
+```bash
+docker build -t piedpiperx .
+docker run -p 8000:8000 piedpiperx
+```
 
-* ZIP
-* TAR.GZ
-* 7z
-* Zstd
-
-Graphs are auto‑generated and versioned.
+Visit: `http://localhost:8000`
 
 ---
 
-## Legal & Ethics
+## ⚖️ License
 
-This project is:
-
-* Inspired by fiction
-* Implements real, known techniques
-* Makes no impossible claims
+MIT 
 
 ---
 
-## Roadmap
+## ⚠️ Disclaimer
 
-* GPU‑assisted entropy analysis
-* Streaming compression
-* Distributed benchmarks
-* Academic paper submission
-
----
-
-## License
-
-Apache‑2.0
+* Inspired by fiction, implemented in reality
+* No magic compression claims
+* Fully transparent and reproducible
 
 ---
-
-## Final Note
-
-**AULCE is a flagship portfolio project** meant to demonstrate:
-
-* systems thinking
-* ML + infra maturity
-* scientific honesty
-
-If it ever beats ZIP by 10× on *your* data—great.
-If it doesn’t—we’ll explain *why*.
