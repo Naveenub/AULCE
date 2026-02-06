@@ -70,7 +70,7 @@ The ML model **does not compress data directly**, but predicts:
 | Inputs     | Entropy, file size, MIME, symbol frequency, prior compression |
 | Outputs    | Pipeline selection, expected ratio, confidence                |
 | Library    | scikit-learn, PyTorch                                         |
-| License    | MIT / Apache 2.0                                              |
+| License    | MIT                                                           |
 
 ---
 
